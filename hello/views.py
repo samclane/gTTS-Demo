@@ -1,21 +1,22 @@
-import requests
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
+from gettingstarted.settings import BASE_DIR
+import os
 
-from .models import Greeting
+from gtts import gTTS
+
 
 # Create your views here.
 def index(request):
-    r = requests.get('http://httpbin.org/status/418')
-    print(r.text)
-    return HttpResponse('<pre>' + r.text + '</pre>')
+    if request.method == 'POST':
+        phrase = request.POST.get('textfield', None)
+        try:
+            tts = gTTS(phrase, lang='en')
+            with open(os.path.join(BASE_DIR, r"audio\file.mp3"), 'wb') as f:
+                tts.write_to_fp(f)
+            return render(request, "index.html", {"link": os.path.join(BASE_DIR, r"audio\file.mp3")})
+        except Exception as exc:
+            return HttpResponse(f"Exception thrown during speak attempt: {exc}\n")
+    else:
+        return render(request, "index.html")
 
-
-def db(request):
-
-    greeting = Greeting()
-    greeting.save()
-
-    greetings = Greeting.objects.all()
-
-    return render(request, "db.html", {"greetings": greetings})
