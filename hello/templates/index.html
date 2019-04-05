@@ -5,8 +5,8 @@
 
 <script type="text/javascript">
     function loadSource() {
-        var audio = document.getElementsByTagName('audio')[0];
-        var source = document.createElement('source');console.log(source);
+        let audio = document.getElementsByTagName('audio')[0];
+        let source = document.createElement('source');
         source.setAttribute('src', "{{ link|addslashes }}");
         audio.setAttribute('autoplay', "true");
         audio.appendChild(source);
@@ -16,17 +16,16 @@
 
     <form method="POST">
         {% csrf_token %}
-        <input type="text" name="textfield">
+        <input type="text" name="textfield" placeholder="Insert text...">
 
         <button type="submit">Speak</button>
     </form>
 
-    <audio controls>
+    <audio>
         Your browser does not support the audio element.
     </audio>
 
     {% if link %}
-        {{ link }}
         <script type="text/javascript">
             loadSource();
         </script>
