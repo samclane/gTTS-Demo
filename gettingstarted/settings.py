@@ -116,7 +116,10 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = "/static/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "audio")
-MEDIA_URL = "/media/"
+if os.name != 'nt':
+    MEDIA_ROOT = '/tmp/'
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, "audio")
+MEDIA_URL = "/tmp/"
 
 django_heroku.settings(locals())
