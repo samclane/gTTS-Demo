@@ -8,6 +8,7 @@
         var audio = document.getElementsByTagName('audio')[0];
         var source = document.createElement('source');console.log(source);
         source.setAttribute('src', "{{ link|addslashes }}");
+        source.setAttribute('autostart', "true");
         audio.appendChild(source);
     }
 </script>
