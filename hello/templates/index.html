@@ -1,34 +1,89 @@
-{% extends "base.html" %}
 {% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        <!-- Load the audio source after the audio element is already rendered. -->
+        function loadSource() {
+            let audio = document.getElementsByTagName('audio')[0];
+            let source = document.createElement('source');
+            source.setAttribute('src', "{{ link|addslashes }}");
+            audio.setAttribute('autoplay', "true");
+            audio.appendChild(source);
+        }
+    </script>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-{% block content %}
+        body {
+            background: #f2f2f2;
+            font-family: 'Open Sans', sans-serif;
+        }
 
-<script type="text/javascript">
-    function loadSource() {
-        let audio = document.getElementsByTagName('audio')[0];
-        let source = document.createElement('source');
-        source.setAttribute('src', "{{ link|addslashes }}");
-        audio.setAttribute('autoplay', "true");
-        audio.appendChild(source);
-    }
-</script>
+        .speak {
+            width: 100%;
+            position: relative
+        }
+
+        .speakTerm {
+            float: left;
+            width: 100%;
+            border: 3px solid #00B4CC;
+            padding: 5px;
+            height: 20px;
+            border-radius: 5px;
+            outline: none;
+            color: #9DBFAF;
+        }
+
+        .speakTerm:focus {
+            color: #00B4CC;
+        }
+
+        .speakButton {
+            position: absolute;
+            right: -50px;
+            width: 70px;
+            height: 36px;
+            border: 1px solid #00B4CC;
+            background: #00B4CC;
+            text-align: center;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        /*Resize the wrap to see the search bar change!*/
+        .wrap {
+            width: 30%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
 
 
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" name="textfield" placeholder="Insert text...">
+<div class="wrap">
+    <div class="speak">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="textfield" placeholder="Insert text..." class="speakTerm">
 
-        <button type="submit">Speak</button>
-    </form>
+            <button type="submit" class="speakButton">Speak</button>
+        </form>
 
-    <audio>
-        Your browser does not support the audio element.
-    </audio>
+        <audio>
+            Your browser does not support the audio element.
+        </audio>
 
-    {% if link %}
-        <script type="text/javascript">
-            loadSource();
-        </script>
-    {% endif %}
-
-{% endblock %}
+        {% if link %}
+            <script type="text/javascript">
+                loadSource();
+            </script>
+        {% endif %}
+    </div>
+</div>
+</html>
