@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <!--[if IE]><link rel="shortcut icon" href="../static/red_favicon_32.ico"><![endif]-->
+    <link rel="icon" href="../static/red_favicon_196.png">
+
     <script type="text/javascript">
         <!-- Load the audio source after the audio element is already rendered. -->
         function loadSource() {
@@ -12,6 +16,7 @@
             audio.appendChild(source);
         }
     </script>
+
     <style>
         @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
@@ -68,6 +73,8 @@
 
 <div class="wrap">
     <div class="speak">
+        <img src="../static/red_small.png" alt="Redbot says hi!">
+
         <form method="POST">
             {% csrf_token %}
             <input type="text" name="textfield" placeholder="Insert text..." class="speakTerm">
