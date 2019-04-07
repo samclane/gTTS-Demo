@@ -2,10 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <!--[if IE]><link rel="shortcut icon" href="../static/red_favicon_32.ico"><![endif]-->
     <link rel="icon" href="../static/red_favicon_196.png">
-
     <script type="text/javascript">
         <!-- Load the audio source after the audio element is already rendered. -->
         function loadSource() {
@@ -16,20 +14,19 @@
             audio.appendChild(source);
         }
     </script>
-
     <style>
         @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
         body {
-            background: #f2f2f2;
+            background: #23272a;
             font-family: 'Open Sans', sans-serif;
         }
-
 
         .speechBubble {
             float: right;
             position: absolute;
-            background: #00b4cc;
+            background: #7289da;
+            color: #ffffff;
             border-radius: .4em;
             padding: 20px 20px;
             text-align: center;
@@ -46,7 +43,7 @@
             width: 0;
             height: 0;
             border: 6px solid transparent;
-            border-right-color: #00b4cc;
+            border-right-color: #7289da;
             border-left: 0;
             border-top: 0;
             margin-top: -3px;
@@ -61,16 +58,17 @@
         .speakTerm {
             float: left;
             width: 100%;
-            border: 3px solid #00B4CC;
+            border: 3px solid #7289da;
+            background-color: #2c2f33;
             padding: 5px;
             height: 20px;
             border-radius: 5px;
             outline: none;
-            color: #9DBFAF;
+            color: #ffffff;
         }
 
         .speakTerm:focus {
-            color: #00B4CC;
+            color: #ffffff;
         }
 
         .speakButton {
@@ -78,13 +76,26 @@
             right: -50px;
             width: 70px;
             height: 36px;
-            border: 1px solid #00B4CC;
-            background: #00B4CC;
+            border: 1px solid #7289da;
+            background: #7289da;
             text-align: center;
             color: #fff;
             border-radius: 5px;
             cursor: pointer;
             font-size: 20px;
+        }
+
+        ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: #fff;
+          opacity: 1; /* Firefox */
+        }
+
+        :-ms-input-placeholder { /* Internet Explorer 10-11 */
+          color: #fff;
+        }
+
+        ::-ms-input-placeholder { /* Microsoft Edge */
+          color: #fff;
         }
 
         /*Resize the wrap to see the search bar change!*/
@@ -97,29 +108,24 @@
         }
     </style>
 </head>
-
-
 <div class="wrap">
     <img src="../static/red_small.png" alt="Redbot says hi!" class="mascotImage">
-
-    {% if phrase %}
-        <div class="speechBubble">
+    <div class="speechBubble">
+        {% if phrase %}
             {{ phrase }}
-        </div>
-    {% endif %}
-
+        {% else %}
+            Hello, there!
+        {% endif %}
+    </div>
     <div class="speak">
         <form method="POST">
             {% csrf_token %}
             <input type="text" name="textfield" placeholder="Insert text..." class="speakTerm">
-
             <button type="submit" class="speakButton">Speak</button>
         </form>
-
         <audio>
             Your browser does not support the audio element.
         </audio>
-
         {% if link %}
             <script type="text/javascript">
                 loadSource();
