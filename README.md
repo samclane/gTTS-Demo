@@ -1,7 +1,5 @@
 # gTTS-Demo
 
-<img align="right" width="196" height="196" title="RedBot" src="./hello/static/red_favicon_196.png">
-
 A testing utility for the `gTTS` Python Module. 
 
 ## Screenshot
