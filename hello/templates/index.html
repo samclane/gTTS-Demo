@@ -25,6 +25,34 @@
             font-family: 'Open Sans', sans-serif;
         }
 
+
+        .speechBubble {
+            float: right;
+            position: absolute;
+            background: #00b4cc;
+            border-radius: .4em;
+            padding: 20px 20px;
+            text-align: center;
+            right: 25px;
+            top: inherit;
+        }
+
+        .speechBubble:after {
+            float: right;
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            border-right-color: #00b4cc;
+            border-left: 0;
+            border-top: 0;
+            margin-top: -3px;
+            margin-left: -6px;
+        }
+
         .speak {
             width: 100%;
             position: relative
@@ -72,9 +100,15 @@
 
 
 <div class="wrap">
-    <div class="speak">
-        <img src="../static/red_small.png" alt="Redbot says hi!">
+    <img src="../static/red_small.png" alt="Redbot says hi!" class="mascotImage">
 
+    {% if phrase %}
+        <div class="speechBubble">
+            {{ phrase }}
+        </div>
+    {% endif %}
+
+    <div class="speak">
         <form method="POST">
             {% csrf_token %}
             <input type="text" name="textfield" placeholder="Insert text..." class="speakTerm">
